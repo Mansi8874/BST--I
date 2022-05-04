@@ -1,0 +1,107 @@
+public class Solution {
+
+	/*
+	 * Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> { T data; BinaryTreeNode<T> left; BinaryTreeNode<T>
+	 * right;
+	 * 
+	 * public BinaryTreeNode(T data) { this.data = data; } }
+	 */
+
+	/*
+	 * LinkedList Node Class
+	 *
+	 * 
+	 * class LinkedListNode<T> { T data; LinkedListNode<T> next;
+	 * 
+	 * public LinkedListNode(T data) { this.data = data; } }
+	 */
+    
+
+	public static LinkedListNode<Integer> constructLinkedList(BinaryTreeNode<Integer> root) { 
+         Pair<LinkedListNode<Integer>,LinkedListNode<Integer>> output= helper(root);
+        return output.first;
+	}
+    public static Pair<LinkedListNode<Integer>,LinkedListNode<Integer>> helper(BinaryTreeNode<Integer> root){
+        if(root==null){
+            Pair<LinkedListNode<Integer>,LinkedListNode<Integer>> output=new Pair<>();
+            output.first=null;
+            output.second=null;
+            return output;
+        }
+        Pair<LinkedListNode<Integer>,LinkedListNode<Integer>> leftoutput=helper(root.left);
+        LinkedListNode<Integer> newNode=new LinkedListNode<>(root.data);
+        Pair<LinkedListNode<Integer>,LinkedListNode<Integer>> rightoutput=helper(root.right);
+        Pair<LinkedListNode<Integer>,LinkedListNode<Integer>> output=new Pair<>();
+        if(leftoutput.first!=null){
+            output.first=leftoutput.first;
+            leftoutput.second.next=newNode;
+        }else{
+            output.first=newNode;
+        }
+        newNode.next=rightoutput.first;
+        if(rightoutput.first==null){
+            output.second=newNode;
+        }else{
+            output.second=rightoutput.second;
+        }
+        return output;
+    }
+}
+
+class Pair<T,V>{
+    T first;
+    V second;
+}
+    
+    
+    
+    
+    
+//     public static LinkedListNode<Integer> constructLinkedList(BinaryTreeNode<Integer> root){
+//         /* Your class should be named Solution
+// 		 * Don't write main().
+// 		 * Don't read input, it is passed as function argument.
+// 		 * Return output and don't print it.
+// 	 	 * Taking input and printing output is handled automatically.
+// 		*/
+//         Pair ans=helper(root);
+//         return ans.head;
+//     }
+//     public static Pair helper(BinaryTreeNode<Integer> root){
+//         if(root==null)
+//         {
+//             Pair output=new Pair();
+//             output.head=null;
+//             output.tail=null;
+//             return output;
+//         }
+//         Pair lefttree=helper(root.left);
+//         LinkedListNode<Integer> newNode=new LinkedListNode<>(root.data);
+//         Pair righttree=helper(root.right);
+//         Pair output=new Pair();
+//        if(lefttree.head!=null)
+//        {
+//            output.head=lefttree.head;
+//            lefttree.tail.next=newNode;
+        
+//        }
+//         else {
+//             output.head=newNode;
+//         }
+//     newNode.next=righttree.head;
+//         if(righttree.head==null)
+//         {
+//             output.tail=newNode;
+            
+//         }
+//         else{
+//             output.tail=righttree.tail;
+//         }
+//         return output;
+// }}
+// class Pair{
+//     LinkedListNode<Integer> head;
+//     LinkedListNode<Integer> tail;
+// }
